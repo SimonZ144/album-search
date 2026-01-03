@@ -1,0 +1,56 @@
+.round {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+
+.search {
+    position: absolute;
+    width: 300px;
+    height: 30px;
+    top: 20%;
+    left: 38%;
+}
+
+
+input::placeholder {  
+    color: black;
+    font-size: medium;
+    padding-left: 30%;  
+}
+
+
+.album-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 250px;
+}
+
+
+.album {
+    max-width: 17%;
+    box-sizing: border-box;
+    
+}
+
+
+.album img {
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    border: 1px #000 solid;
+}
+
+
+.album img:hover {
+    transform: scale(1.2); /* Increase the size of the image */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
