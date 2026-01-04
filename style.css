@@ -1,0 +1,131 @@
+/* SEARCH INPUT */
+.round {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.search {
+    position: absolute;
+    width: 300px;
+    height: 30px;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+}
+
+/* TITLE */
+.title { 
+    position: absolute;
+    top: 8%;
+    left: 51%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* PLACEHOLDER */
+input::placeholder {  
+    color: black;
+    font-size: medium;
+    text-align: center;
+}
+
+/* ALBUM GRID */
+.album-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 150px;
+}
+
+.overlay { 
+    z-index: 2; 
+    position: absolute;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;  
+    top: 0; 
+    left: 0; 
+    width: 100%;
+    height: 90%; 
+    background: rgba(0, 0, 0, 0.6); 
+    border-radius: 25px;
+    opacity: 0;
+    
+    transition: opacity 0.3s ease;
+}
+
+.overlay-text { 
+    text-decoration: none; 
+    color: white; 
+    font-size: 1.2rem;
+    font-weight: 600; 
+    text-transform: uppercase;
+
+}
+.album { 
+    position: relative;
+    max-width: 17%;
+    box-sizing: border-box;
+}
+
+.album img {
+    z-index: 1; 
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    border: 1px #000 solid;
+    transition: transform 0.3s ease;
+}
+
+.album:hover img { 
+    transform: scale(1.1);
+    filter: blur(4px);
+    opacity: 1; 
+}
+
+.album:hover .overlay {
+    opacity: 1;
+    transform: scale(1.1);
+   
+}
+
+.overlay-actions { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px;
+}
+
+/* ---------------- MOBILE FIXES ---------------- */
+@media (max-width: 768px) {
+
+    .title {
+        top: 6%;
+        font-size: 2rem;
+    }
+
+    .search {
+        top: 14%;
+        width: 80%;
+    }
+
+    .album {
+        max-width: 45%;
+    }
+
+    .album-container {
+        margin-top: 100px;
+    }
+}
