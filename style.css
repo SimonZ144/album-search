@@ -21,7 +21,7 @@
 }
 
 /* TITLE */
-.title { 
+.title {
     position: absolute;
     top: 8%;
     left: 51%;
@@ -34,7 +34,7 @@
 }
 
 /* PLACEHOLDER */
-input::placeholder {  
+input::placeholder {
     color: black;
     font-size: medium;
     text-align: center;
@@ -50,7 +50,7 @@ input::placeholder {
 }
 
 /* ALBUM CARD */
-.album { 
+.album {
     position: relative;
     max-width: 17%;
     box-sizing: border-box;
@@ -67,43 +67,43 @@ input::placeholder {
 }
 
 /* OVERLAY */
-.overlay { 
+.overlay {
     position: absolute;
-    top: 0; 
-    left: 0; 
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
 
-    background: rgba(0, 0, 0, 0.6); 
+    background: rgba(0, 0, 0, 0.6);
     border-radius: 25px;
 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 2;
 }
 
-.overlay-actions { 
-    display: flex; 
-    flex-direction: column; 
+.overlay-actions {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     pointer-events: auto;
 }
 
-.overlay-text { 
-    text-decoration: none; 
-    color: white; 
+.overlay-text {
+    text-decoration: none;
+    color: white;
     font-size: 1.2rem;
-    font-weight: 600; 
+    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
 }
 
 /* HOVER EFFECTS */
-.album:hover img { 
+.album:hover img {
     transform: scale(1.1);
     filter: blur(4px);
 }
@@ -111,6 +111,82 @@ input::placeholder {
 .album:hover .overlay {
     opacity: 1;
 }
+
+
+
+/* INPUT EFFECTS */
+.modal-content input[type="number"] {
+    width: 60px;
+    padding: 4px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    text-align: center;
+
+}
+
+#modal-score {
+    margin-left: auto;
+    width: fit-content;
+    font-size: large;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.modal-backdrop.hidden { 
+    display: none;
+}
+
+/* background when clicked */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    width: min(700px, 90vw);
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal-close {
+    background: white;
+    border-radius: 5px;
+
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.track-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+
+
 
 /* ---------------- MOBILE FIXES ---------------- */
 @media (max-width: 768px) {

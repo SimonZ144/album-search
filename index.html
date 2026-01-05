@@ -6,12 +6,33 @@
     <title>Album Score Calculator</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
-    <script defer src="release.js"></script>
 </head>
 
+
+
+
+
 <body>
+
+    <div id="modal-backdrop" class="modal-backdrop hidden">
+        <div class="modal"> 
+            <button class="modal-close">&times;</button>
+            
+            <div class="modal-content">
+                <h2 id="modal-album-title"></h2>
+                <p id="moe"></p>
+                <div id="modal-track-list"></div>
+                <div id="modal-score" class="hidden">Score: 
+                    <span id="modal-score-value">0.0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="new-releases" class="album-container"></div> 
-    <h1 class="title">Album Score</h1>
+    <h1 class="title">Album Score</h1> 
+
+    
 
     <form>
         <div class="search">

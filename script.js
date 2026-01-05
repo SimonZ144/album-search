@@ -1,5 +1,6 @@
 const searchInput = document.getElementById('search-input'); // stores the user input
 const searchResults = document.getElementById('search-results'); // gets pictures / title from last.fm api
+const apiKey = 'a8d08ca83f8452289db0aa331422af44';
 
 searchInput.addEventListener('keyup', handleSearch);
 
@@ -11,8 +12,8 @@ function handleSearch(event) {
         return;
     }
 
-    const apiKey = 'a8d08ca83f8452289db0aa331422af44';
     const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&api_key=${apiKey}&format=json`;
+
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -20,6 +21,42 @@ function handleSearch(event) {
             updateSearchResults(data);
         });
 }
+
+// CALCULATING SCORE 
+function calculateScore() { 
+    const scoreInputs = document.querySelectorAll('.track-score'); 
+
+    let total = 0; 
+    let count = 0; 
+
+    scoreInputs.forEach(input => {
+        const value = Number(input.value);
+
+        if (!isNaN(value)) { 
+            total += value; 
+            count++; 
+        }
+
+    });
+
+    const maxScore = count * 10; 
+    const average = count > 0 ? (total / maxScore) * 10 : 0; 
+
+    document.getElementById('modal-score').classList.remove('hidden'); 
+    const score = document.getElementById('modal-score-value'); 
+    score.textContent = average.toFixed(1); 
+};  
+
+
+const closeButton = document.querySelector('.modal-close') 
+const modalBackdrop = document.getElementById('modal-backdrop')
+
+closeButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    modalBackdrop.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+});
+     
 
 function updateSearchResults(data) {
     searchResults.innerHTML = '';
@@ -48,9 +85,80 @@ function updateSearchResults(data) {
         overlayText.classList.add('overlay-text');
         overlayText.textContent = 'Calculate';
 
+        const title = album.name + " by " + album.artist; 
+
+        // CLCULATE HANDLE 
+    
         overlayText.addEventListener('click', () => {
-            console.log('Calculate clicked:', album.name);
+
+
+            const modal = document.getElementById('modal-backdrop'); 
+            modal.classList.remove('hidden'); 
+            document.body.classList.add('modal-open'); 
+            document.getElementById('modal-album-title').textContent = title; 
+        
+
+
+            // ALBUMS NAMES 
+            const albumName = album.name; 
+            const artist = album.artist; 
+            const trackUrl = `https://ws.audioscrobbler.com/2.0/?method=album.getInfo&api_key=${apiKey}&artist=${encodeURIComponent(artist)}&album=${encodeURIComponent(albumName)}&format=json`;
+
+            fetch(trackUrl)
+                .then(res => res.json())
+                .then(data => { 
+                    const trackListEl = document.getElementById('modal-track-list');
+                    trackListEl.innerHTML = ''; 
+
+                    let tracks = data.album.tracks.track; 
+                    
+                    tracks = Array.isArray(tracks) ? tracks : [tracks]; 
+
+                    tracks.forEach((track, index) => { 
+                        const seconds = parseInt(track.duration, 10) || 0; 
+                        const minutes = Math.floor(seconds / 60);
+                        const remainingSeconds = seconds % 60; 
+                        const formattedTime = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                        const row = document.createElement('div'); 
+                        row.classList.add('track-row'); 
+                        
+                        const label = document.createElement('span'); 
+                        label.textContent = `${index + 1}. ${track.name} (${formattedTime})`;
+                        
+                        // INPUT 
+                        const input = document.createElement('input'); 
+                        
+                        input.addEventListener('input', () => {
+                            let value = Number(input.value); 
+
+                            if (value > 10) input.value = 10; 
+
+                            if (value < 0) input.value = 0; 
+
+                            calculateScore(); 
+                        }); 
+
+                        input.type = 'number'; 
+                        input.min = '0'; 
+                        input.max = '10'; 
+                        input.placeholder = '0-10';
+
+                        input.classList.add('track-score'); 
+
+                        row.appendChild(label);
+                        row.appendChild(input); 
+                        trackListEl.append(row); 
+
+                        
+                    }); 
+
+
+
+                }); 
         });
+
+
+
 
         // Album + artist info
         const artistName = album.artist;
